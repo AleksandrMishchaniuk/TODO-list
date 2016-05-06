@@ -1,8 +1,11 @@
+<script src="js/to-do-list/task/actions.js"></script>
+<script src="js/to-do-list/task/list_handlers.js"></script>
 <div class="row">
     <div class="col-md-offset-2 col-md-8">
         <h3>Новая задача</h3>
         <?php
-            $form->setAttribute('action', $this->url('todolist', array('controller'=>'Task', 'action'=>'add')));
+            $form->setAttribute('action', $this->url('todolist', array('controller'=>'task', 'action'=>'add')));
+            $form->setAttribute('id', 'task_form');
             echo $this->form()->openTag($form);
         ?>
         <div class="form-group">
@@ -22,5 +25,8 @@
                 <?php echo $this->formElement($form->get('submit')) ?>
             </div>
         </div>
+        <?php echo $this->formElement($form->get('status')) ?>
     </div>
 </div>
+
+<div class="test_div"></div>

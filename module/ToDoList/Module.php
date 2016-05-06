@@ -3,8 +3,13 @@
 namespace ToDoList;
 
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
-use Zend\Mvc\ModuleRouteListener;
-use Zend\Mvc\MvcEvent;
+use Zend\Db\ResultSet\ResultSet;
+use Zend\Db\TableGateway\TableGateway;
+
+use ToDoList\Model\Task;
+use ToDoList\Model\TaskTable;
+use ToDoList\Model\Comment;
+use ToDoList\Model\CommentTable;
 
 class Module implements AutoloaderProviderInterface
 {
@@ -23,6 +28,27 @@ class Module implements AutoloaderProviderInterface
     public function getConfig()
     {
         return include __DIR__ . '/config/module.config.php';
+    }
+    
+    public function getServiceConfig() {
+        return array(
+            'factories' => array(
+                'ToDoList/TaskTable' => function($sm){
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $rs = new ResultSet();
+                    $rs->setArrayObjectPrototype(new Task());
+                    $tableGateway = new TableGateway('tasks', $dbAdapter, NULL, $rs);
+                    return new TaskTable($tableGateway);
+                },
+                'ToDoList/CommentTable' => function($sm){
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $rs = new ResultSet();
+                    $rs->setArrayObjectPrototype(new Comment());
+                    $tableGateway = new TableGateway('comments', $dbAdapter, NULL, $rs);
+                    return new CommentTable($tableGateway);
+                },
+            ),
+        );
     }
 
 }

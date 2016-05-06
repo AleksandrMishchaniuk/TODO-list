@@ -1,8 +1,8 @@
 <?php
 return array(
     'controllers' => array(
-        'invokables' => array(
-            'ToDoList\Controller\Task' => 'ToDoList\Controller\TaskController',
+        'factories' => array(
+            'ToDoList\Controller\Task' => 'ToDoList\Factory\TaskControllerFactory',
         ),
     ),
     'router' => array(
@@ -11,7 +11,7 @@ return array(
                 'type'    => 'Segment',
                 'options' => array(
                     // Change this to something specific to your module
-                    'route'    => '/[:controller[:action[/:id]]]',
+                    'route'    => '/[:controller[/:action[/:id]]]',
                     'constraints' => array(
                         'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
@@ -31,6 +31,9 @@ return array(
     'view_manager' => array(
         'template_path_stack' => array(
             'ToDoList' => __DIR__ . '/../view',
+        ),
+        'strategies' => array(
+            'ViewJsonStrategy',
         ),
     ),
 );

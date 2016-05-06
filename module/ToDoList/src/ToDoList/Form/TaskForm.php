@@ -8,7 +8,6 @@ class TaskForm extends Form {
     public function __construct($name = null) {
         parent::__construct('Task');
         $this->setAttribute('method', 'post');
-        $this->setAttribute('id', 'task_form');
         $this->setAttribute('role', 'form');
         $this->setAttribute('class', 'form-horizontal');
 //        

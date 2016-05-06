@@ -14,7 +14,7 @@
 return array(
     'db' => array(
         'driver' => 'Pdo',
-        'dsn' => 'mysql:dbname=todo_list;host=localhost',
+        'dsn' => 'mysql:dbname=todolist;host=localhost',
         'user' => 'root',                   // знаю. Так делать нельзя!!!!
         'password' => '',                   // указывать надо в local.php
         'driver_options' => array(
@@ -23,7 +23,7 @@ return array(
     ),
     'service_manager' => array(
         'factories' => array(
-            'Zend\Db\Adapter\Adapter' => 'Zend\DB\Adapter\AdapterServiceFactory',
+            'Zend\Db\Adapter\Adapter' => 'Zend\Db\Adapter\AdapterServiceFactory',
         ),
     ),
 );
