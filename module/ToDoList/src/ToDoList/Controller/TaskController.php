@@ -99,10 +99,4 @@ class TaskController extends AbstractActionController
         }
         return new JsonModel($this->respond);
     }
-    
-    protected function convertDate($format, $date_str){
-        $date = new \DateTime($date_str);
-        return $date->format($format);
-    }
-
 }

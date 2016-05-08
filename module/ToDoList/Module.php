@@ -51,6 +51,14 @@ class Module implements AutoloaderProviderInterface
         );
     }
     
+    public function getControllerPluginConfig() {
+        return array(
+            'invokables' => array(
+                'convertDate' => 'ToDoList\Controller\Plagin\ConvertDate',
+            ),
+        );
+    }
+    
     public function onBootstrap($e)
     {
         $e->getApplication()->getEventManager()->getSharedManager()->attach('Zend\Mvc\Controller\AbstractController', 'dispatch', function($e) {

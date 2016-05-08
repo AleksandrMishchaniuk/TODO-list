@@ -26,3 +26,7 @@ dd{
 .tasks_list tr td:nth-child(2){
     text-align: left;
 }
+
+.comment_date{
+    float: right;
+}

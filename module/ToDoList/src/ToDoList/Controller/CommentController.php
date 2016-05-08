@@ -36,8 +36,7 @@ class CommentController extends AbstractActionController
                     $this->respond['msg'][] = 'Ваш комментарий добавлен';
                     $this->respond['data'] = $this  ->commentTable
                                                     ->getLastByTaskId($form->get('task_id')->getValue());
-                    $date = new \DateTime($this->respond['data']->date);
-                    $this->respond['data']->date = $date->format('d.m.Y H:i');
+                    $this->respond['data']->date = $this->convertDate('d.m.Y H:i', $this->respond['data']->date);
                 }else{
                     $this->respond['msg'][] = 'Ошибка при добавлении комментария';
                 }
