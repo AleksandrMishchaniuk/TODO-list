@@ -8,18 +8,9 @@ class CommentForm extends Form {
     public function __construct($name = null) {
         parent::__construct('Comment');
         $this->setAttribute('method', 'post');
-        $this->setAttribute('id', 'comment_form');
         $this->setAttribute('role', 'form');
         $this->setAttribute('class', 'form-horizontal');
-//        
-//        $this->add(array(
-//            'name' => 'id',
-//            'attributes' => array(
-//                'type' => 'hidden',
-//                'value' => 0,
-//            ),
-//        ));
-        
+
         $this->add(array(
             'name' => 'name',
             'attributes' => array(
@@ -28,7 +19,7 @@ class CommentForm extends Form {
                 'required' => 'required',
             ),
             'options' => array(
-                'label' => 'Текст задачи',
+                'label' => 'Имя',
                 'min' => 1,
                 'max' => 255,
             ),
@@ -42,7 +33,7 @@ class CommentForm extends Form {
                 'required' => 'required',
             ),
             'options' => array(
-                'label' => 'Текст задачи',
+                'label' => 'Текст комментария',
                 'min' => 1,
             ),
         ));

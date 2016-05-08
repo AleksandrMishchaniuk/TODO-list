@@ -46,9 +46,18 @@ class TaskTable {
         return $row;
     }
     
+    public function getLast() {
+        $select = new Select;
+        $select->from($this->tableGateway->getTable())
+                ->order(array('id DESC'))
+                ->limit(1);
+        $result = $this->tableGateway->selectWith($select);
+        return $result->current();
+    }
+    
     public function fetchAll() {
         $select = new Select;
-        $select->from($this->tableGateway->getTable())->order(array('status DESC', 'deadline DESC'));
+        $select->from($this->tableGateway->getTable())->order(array('status ASC', 'deadline ASC', 'id DESC'));
         return $this->tableGateway->selectWith($select);
     }
 }

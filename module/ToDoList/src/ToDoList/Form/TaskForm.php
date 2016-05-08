@@ -10,14 +10,6 @@ class TaskForm extends Form {
         $this->setAttribute('method', 'post');
         $this->setAttribute('role', 'form');
         $this->setAttribute('class', 'form-horizontal');
-//        
-//        $this->add(array(
-//            'name' => 'id',
-//            'attributes' => array(
-//                'type' => 'hidden',
-//                'value' => 0,
-//            ),
-//        ));
         
         $this->add(array(
             'name' => 'text',

@@ -1,0 +1,96 @@
+
+<script src="/js/to-do-list/task/functions.js"></script>
+<script src="/js/to-do-list/task/view_handlers.js"></script>
+
+<?php 
+    $is_checked = $task->status;
+    $date = new DateTime($task->deadline);
+?>
+<div class="row">
+    <div class="col-md-offset-1 col-md-10">
+        <a href="<?= $this->url('todolist'); ?>" class="btn btn-success">
+            К списку задач
+        </a>
+        <br/><br/>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <dl class="dl-horizontal">
+                    <dt><h4>Задача</h4></dt>
+                    <dd class="task_text <?= ($is_checked)? 'checked': '' ?>">
+                        <?= $task->text; ?>
+                    </dd>
+                    <dt><h4>Статус</h4></dt>
+                    <dd>
+                        <input type="checkbox" class="task_status" <?= ($is_checked)? 'checked': '' ?>
+                               data-id="<?= $task->id; ?>"/>
+                    </dd>
+                    <dt><h4>Срок выполнения</h4></dt>
+                    <dd><?= $date->format('d.m.Y'); ?></dd>
+                </dl>
+            </div>
+        </div>
+
+        <hr/>
+        
+        <h3>Комментарии</h3>
+        
+        <div class="comments_list">
+            <div class="comment panel panel-default" id="comment_template" style="display: none;">
+                <div class="panel-heading">
+                    <div class="comment_date"></div>
+                    <div class="comment_name"></div>
+                </div>
+                <div class="panel-body comment_text">
+                </div>
+            </div>
+            <?php foreach($comments as $comment): ?>
+            <?php $comment_date = new DateTime($comment->date); ?>
+            <div class="comment panel panel-default">
+                <div class="panel-heading">
+                    <div class="comment_date">
+                        <?= $comment_date->format('d.m.Y H:i'); ?>
+                    </div>
+                    <div class="comment_name">
+                        <?= $comment->name; ?>
+                    </div>
+                </div>
+                <div class="panel-body comment_text">
+                    <?= $comment->text; ?>
+                </div>
+            </div>
+            <?php endforeach; ?>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-offset-4 col-sm-4 well">
+                <h3>Новый комментарий</h3>
+                <?php
+                    $form->setAttribute('action', $this->url('todolist', array('controller'=>'comment', 'action'=>'add')));
+                    $form->setAttribute('id', 'comment_form');
+                    echo $this->form()->openTag($form);
+                ?>
+                <div class="form-group">
+                    <label for="name" class="col-md-4 control-label"><?= $form->get('name')->getLabel() ?></label>
+                    <div class="col-md-8">
+                        <?php echo $this->formElement($form->get('name')) ?>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="text" class="col-md-4 control-label"><?= $form->get('text')->getLabel() ?></label>
+                    <div class="col-md-8">
+                        <?php echo $this->formElement($form->get('text')) ?>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-4 col-md-8">
+                        <?php echo $this->formElement($form->get('submit')) ?>
+                    </div>
+                </div>
+                <?php $form->get('task_id')->setValue($task->id); ?>
+                <?php echo $this->formElement($form->get('task_id')); ?>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="test_div"></div>

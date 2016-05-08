@@ -2,7 +2,7 @@
 namespace ToDoList\Model;
 
 use Zend\Db\TableGateway\TableGateway;
-use Exception;
+use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\Sql\Select;
 
 use ToDoList\Model\Comment;
@@ -39,23 +39,38 @@ class CommentTable {
     public function fetchAllByTaskId($task_id) {
         $select = new Select;
         $select->from($this->tableGateway->getTable())
-                ->order(array('status DESC', 'deadline DESC'))
-                ->where("tash_id = $task_id");
-        return $this->tableGateway->selectWith($select);
+                ->order(array('date DESC'))
+                ->where("task_id = $task_id");
+        $result = $this->tableGateway->selectWith($select);
+        $items = array();
+        foreach ($result as $item){
+            $items[] = $item;
+        }
+        return $items;
     }
     
-    public function getCountByTaskId($task_id) {
+    public function getLastByTaskId($task_id) {
+        $select = new Select;
+        $select->from($this->tableGateway->getTable())
+                ->order(array('id DESC'))
+                ->where("task_id = $task_id")
+                ->limit(1);
+        $result = $this->tableGateway->selectWith($select);
+        return $result->current();
+    }
+    
+    public function getCountsByTasks() {
         $adapter = $this->tableGateway->getAdapter();
         $table = $this->tableGateway->getTable();
-        $sql = "SELECT COUNT(*) AS cnt FROM $table WHERE task_id=$task_id";
+        $sql = "SELECT task_id, COUNT(id) AS cnt FROM $table GROUP BY task_id";
         $stm = $adapter->query($sql);
         $result = $stm->execute();
         $resultSet = new ResultSet();
         $resultSet->initialize($result);
-        $item = NULL;
+        $items = array();
         foreach ($resultSet as $row){
-            $item = $row->cnt;
+            $items[$row->task_id] = $row->cnt;
         }
-        return $item;
+        return $items;
     }
 }

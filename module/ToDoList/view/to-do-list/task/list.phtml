@@ -1,7 +1,86 @@
-<script src="js/to-do-list/task/actions.js"></script>
-<script src="js/to-do-list/task/list_handlers.js"></script>
+
+<script src="/js/to-do-list/task/functions.js"></script>
+<script src="/js/to-do-list/task/list_handlers.js"></script>
+
+<h2>Список задач</h2>
+
+<table class="table tasks_list">
+    <thead>
+        <tr>
+            <th>Статус</th>
+            <th>Задача</th>
+            <th>Срок выполнения</th>
+            <th>Количество комментариев</th>
+        </tr>
+    </thead>
+        <tr id="task_template" class="task" style="display: none;">
+            <td><input type="checkbox" class="task_status" data-id=""/></td>
+            <td>
+                <a href="" class="task_text"></a>
+            </td>
+            <td class="task_deadline"></td>
+            <td class="task_comments_count"></td>
+        </tr>
+    <tbody class="unchecked_tasks">
+        <?php foreach ($tasks as $task): ?>
+        <?php 
+            $is_checked = $task['task']->status;
+            if($is_checked){continue;}
+            $date = new DateTime($task['task']->deadline);
+        ?>
+        <tr class="task <?= ($is_checked)? 'checked': '' ?>">
+            <td>
+                <input type="checkbox" class="task_status" <?= ($is_checked)? 'checked': '' ?>
+                       data-id="<?= $task['task']->id; ?>"/>
+            </td>
+            <td>
+                <a class="task_text" href="<?= $this->url('todolist', 
+                        array('controller'=>'task', 'action'=>'view', 'id' => $task['task']->id)) ?>">
+                    <?= $task['task']->text; ?>
+                </a>
+            </td>
+            <td class="task_deadline">
+                <?= $date->format('d.m.Y'); ?>
+            </td>
+            <td class="task_comments_count">
+                <?= $task['comments_count']; ?>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+    <tbody class="checked_tasks">
+        <?php foreach ($tasks as $task): ?>
+        <?php 
+            $is_checked = $task['task']->status;
+            if(!$is_checked){continue;}
+            $date = new DateTime($task['task']->deadline);
+        ?>
+        <tr class="task <?= ($is_checked)? 'checked': '' ?>">
+            <td>
+                <input type="checkbox" class="task_status" <?= ($is_checked)? 'checked': '' ?>
+                       data-id="<?= $task['task']->id; ?>"/>
+            </td>
+            <td>
+                <a class="task_text" href="<?= $this->url('todolist', 
+                        array('controller'=>'task', 'action'=>'view', 'id' => $task['task']->id)) ?>">
+                    <?= $task['task']->text; ?>
+                </a>
+            </td>
+            <td class="task_deadline">
+                <?= $date->format('d.m.Y'); ?>
+            </td>
+            <td class="task_comments_count">
+                <?= $task['comments_count']; ?>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+
+<hr/>
+
 <div class="row">
-    <div class="col-md-offset-2 col-md-8">
+    <div class="col-md-offset-2 col-md-8 well">
         <h3>Новая задача</h3>
         <?php
             $form->setAttribute('action', $this->url('todolist', array('controller'=>'task', 'action'=>'add')));

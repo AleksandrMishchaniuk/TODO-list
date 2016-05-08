@@ -28,7 +28,7 @@ class Comment {
         if (!$this->inputFilter){
             $filter = new InputFilter();
             
-            $this->add(array(
+            $filter->add(array(
                 'name' => 'name',
                 'required' => TRUE,
                 'filters' => array(
@@ -40,7 +40,7 @@ class Comment {
                     array(
                         'name' => 'Regex',
                         'options' => array(
-                            'pattern' => '/^[ 0-9A-Za-zА-Яа-я_-]{1,255}$/',
+                            'pattern' => '/^[-\w ]{1,255}$/u',
                         ),
                     ),
                 ),

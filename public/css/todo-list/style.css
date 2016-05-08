@@ -1,0 +1,3 @@
+tr.checked td, dd.checked{
+    text-decoration: line-through;
+}

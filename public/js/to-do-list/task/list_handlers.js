@@ -1,12 +1,8 @@
 $(document).ready(function(){
-    $('#task_form').submit(function(){
-        $.ajax({
-            type: 'POST',
-            url: 'task/add',
-            data: $(this).serialize(),
-            success: taskAddAction,
-            error: errorAction
-        });
-        return false;
-    });
+    $('[name="deadline"]').datepicker({ constrainInput: true});
+    
+    $('#task_form').submit(addTask);
+    
+    $('.task_status').change(changeTaskStatus);
+    
 });

@@ -3,6 +3,7 @@ return array(
     'controllers' => array(
         'factories' => array(
             'ToDoList\Controller\Task' => 'ToDoList\Factory\TaskControllerFactory',
+            'ToDoList\Controller\Comment' => 'ToDoList\Factory\CommentControllerFactory',
         ),
     ),
     'router' => array(
