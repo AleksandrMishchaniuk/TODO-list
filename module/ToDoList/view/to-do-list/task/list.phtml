@@ -28,10 +28,9 @@
             if($is_checked){continue;}
             $date = new DateTime($task['task']->deadline);
         ?>
-        <tr class="task <?= ($is_checked)? 'checked': '' ?>">
+        <tr class="task">
             <td>
-                <input type="checkbox" class="task_status" <?= ($is_checked)? 'checked': '' ?>
-                       data-id="<?= $task['task']->id; ?>"/>
+                <input type="checkbox" class="task_status" data-id="<?= $task['task']->id; ?>"/>
             </td>
             <td>
                 <a class="task_text" href="<?= $this->url('todolist', 
@@ -55,10 +54,9 @@
             if(!$is_checked){continue;}
             $date = new DateTime($task['task']->deadline);
         ?>
-        <tr class="task <?= ($is_checked)? 'checked': '' ?>">
+        <tr class="task checked">
             <td>
-                <input type="checkbox" class="task_status" <?= ($is_checked)? 'checked': '' ?>
-                       data-id="<?= $task['task']->id; ?>"/>
+                <input type="checkbox" class="task_status" checked data-id="<?= $task['task']->id; ?>"/>
             </td>
             <td>
                 <a class="task_text" href="<?= $this->url('todolist', 
@@ -97,6 +95,7 @@
             <label for="deadline" class="col-md-2 control-label"><?= $form->get('deadline')->getLabel() ?></label>
             <div class="col-md-3">
                 <?php echo $this->formElement($form->get('deadline')) ?>
+                <span class="help-block">Формат даты: дд.мм.гггг</span>
             </div>
         </div>
         <div class="form-group">
@@ -108,4 +107,8 @@
     </div>
 </div>
 
-<div class="test_div"></div>
+<?php
+    include (__DIR__.'/../../layout/messenger_panel.phtml');
+?>
+
+<!--<div class="test_div"></div>-->

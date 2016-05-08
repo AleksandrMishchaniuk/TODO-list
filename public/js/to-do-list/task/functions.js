@@ -12,6 +12,27 @@ function makeDefaultInputs(form){
     $('.form-group', form.eq(0)).removeClass('has-error');
 }
 
+/**
+ * 
+ * @param {string} class_name
+ * @param {array} msgs
+ * @returns {undefined}
+ */
+function showMessenger(class_name, msgs){
+    var div = $('.messanger_panel');
+    for(var i=0; i<msgs.length; i++){
+        var msg = $('<div>').addClass('alert').addClass('alert-'+class_name)
+                .html(msgs[i]).appendTo(div);
+        $('<button>').addClass('close')
+                .attr({
+                    type: 'button',
+                    'data-dismiss': 'alert'
+                })
+                .html('&times;')
+                .prependTo(msg);
+    }
+}
+
 function taskChangeStatusAction(data, task_tr){
     if(+data['ok']){
         if(task_tr.length){
@@ -25,6 +46,9 @@ function taskChangeStatusAction(data, task_tr){
         }else if($('.task_text')){
             $('.task_text').toggleClass('checked');
         }
+        showMessenger('success', data['msg']);
+    }else{
+        showMessenger('error', data['msg']);
     }
 }
 
@@ -43,6 +67,7 @@ function taskAddAction(data){
         $('.task_comments_count', task_tr.eq(0)).html(0);
         var task_date = getUnixTimeFromDotFormat(data['data']['deadline']);
         insertToTaskList(task_tr, task_date);
+        showMessenger('success', data['msg']);
     }else{
         showErrorInputs(data['msg']);
     }
@@ -91,6 +116,7 @@ function commentAddAction(data){
         $('.comment_text', comment_div.eq(0)).html(data['data']['text']);
         $('.comments_list').prepend(comment_div);
         comment_div.slideDown();
+        showMessenger('success', data['msg']);
     }else{
         showErrorInputs(data['msg']);
     }

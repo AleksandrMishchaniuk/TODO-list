@@ -96,7 +96,6 @@ class TaskController extends AbstractActionController
             }else{
                 $this->respond['msg'][] = 'Данные не прошли валидацию';
             }
-//            var_dump($form->getData()); die();
         }
         return new JsonModel($this->respond);
     }

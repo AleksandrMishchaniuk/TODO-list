@@ -50,5 +50,13 @@ class Module implements AutoloaderProviderInterface
             ),
         );
     }
+    
+    public function onBootstrap($e)
+    {
+        $e->getApplication()->getEventManager()->getSharedManager()->attach('Zend\Mvc\Controller\AbstractController', 'dispatch', function($e) {
+            $controller      = $e->getTarget();
+            $controller->layout('todo-list/layout');
+        }, 100);
+    }
 
 }

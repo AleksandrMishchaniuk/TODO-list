@@ -30,6 +30,9 @@ return array(
         ),
     ),
     'view_manager' => array(
+        'template_map' => array(
+            'todo-list/layout'  => __DIR__ . '/../view/layout/layout.phtml',
+        ),
         'template_path_stack' => array(
             'ToDoList' => __DIR__ . '/../view',
         ),

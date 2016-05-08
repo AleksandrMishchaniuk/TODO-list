@@ -1,3 +1,28 @@
+body{
+    padding: 0;
+}
+
+header, footer{
+    padding: 20px 0;
+    background: silver;
+}
+
+header{
+    margin-bottom: 20px;
+}
+
 tr.checked td, dd.checked{
     text-decoration: line-through;
+}
+
+dd{
+    padding-top: 10px;
+}
+
+.tasks_list th, .tasks_list td{
+    text-align: center;
+}
+
+.tasks_list tr td:nth-child(2){
+    text-align: left;
 }
